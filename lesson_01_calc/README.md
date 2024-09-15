@@ -1,21 +1,6 @@
 # Lesson01Calc
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `lesson_01_calc` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:lesson_01_calc, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/lesson_01_calc>.
-
+Скачайте репозиторий `git clone https://github.com/DartLock/ThinkNetica`.
+Войдите в папку домашнего задания `cd ThinkNetica/lesson_01_calc`.
+Для запуска приложения воспользуйтесь командой `iex -S mix` из папки приложения.
+Ознакомтесь с документацией в `lib/lesson01_calc.ex`.
