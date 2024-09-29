@@ -1,0 +1,9 @@
+{application,part_2_echo_process,
+             [{config_mtime,1727065813},
+              {optional_applications,[]},
+              {applications,[kernel,stdlib,elixir,logger]},
+              {description,"part_2_echo_process"},
+              {modules,['Elixir.Part2Echo','Elixir.Part2Echo.Debug',
+                        'Elixir.Part2Echo.Listener']},
+              {registered,[]},
+              {vsn,"0.1.0"}]}.
