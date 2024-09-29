@@ -1,21 +1,8 @@
 # Part2EchoProcess
 
-**TODO: Add description**
+Скачайте репозиторий:  
+`git clone https://github.com/DartLock/ThinkNetica`.  
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `part_2_echo_process` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:part_2_echo_process, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/part_2_echo_process>.
-
+Войдите в папку домашнего задания `cd ThinkNetica/part_2_echo_process`.  
+Для запуска приложения воспользуйтесь командой `iex -S mix` из папки приложения.  
+Ознакомтесь с документацией в `part_2_echo_process/lib/part2_echo.ex`.
