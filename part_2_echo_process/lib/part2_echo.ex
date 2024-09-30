@@ -79,10 +79,4 @@ defmodule Part2Echo do
 
     {:reply, to_caller, new_state}
   end
-
-  @impl true
-  def handle_info(:pop, element) do
-
-    {:noreply, element}
-  end
 end
