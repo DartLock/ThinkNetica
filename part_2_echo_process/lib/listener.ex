@@ -47,10 +47,8 @@ defmodule Part2Echo.Listener do
 
   defp listen(sender_pid) do
     receive do
-      {_, {:push, message}} ->
-        Part2Echo.push(sender_pid, "#{message} Pong!")
-
-        Debug.show("receive", [{"message", message}, {"sender_pid", sender_pid}])
+      {_, {:push, :ping}} ->
+        Part2Echo.push(sender_pid, {:pong, node()})
 
         listen(sender_pid)
       _ ->

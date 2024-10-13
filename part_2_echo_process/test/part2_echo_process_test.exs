@@ -3,15 +3,12 @@ defmodule Part2EchoTest do
   doctest Part2Echo
 
   test "got message" do
-    ping_word = "Ping!"
-    pong_word = "Pong!"
-    expected_message = "#{ping_word} #{pong_word}"
+    expected_message = {:pong, :nonode@nohost}
 
     {:ok, sender_pid} = Part2Echo.start_link()
     listener_pid = Part2Echo.Listener.run(sender_pid)
 
-    Part2Echo.push(listener_pid, ping_word)
-
+    Part2Echo.push(listener_pid, :ping)
     Process.sleep(400)
 
     message_from_listener = Part2Echo.pop(sender_pid)

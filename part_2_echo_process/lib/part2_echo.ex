@@ -1,6 +1,5 @@
 defmodule Part2Echo do
   use GenServer
-  alias Part2Echo.Debug
 
   @moduledoc """
   Part2Echo.
@@ -40,7 +39,7 @@ defmodule Part2Echo do
   ## Examples
       Part2Echo.push(listener_pid)
   """
-  def push(pid, message) do
+  def push(pid, message \\ :ping) do
     GenServer.cast(pid, {:push, message})
   end
 
@@ -74,8 +73,6 @@ defmodule Part2Echo do
   @impl true
   def handle_call(:pop, _from, state) do
     [to_caller | new_state] = state
-
-    Debug.show("handle_call :pop", [{"state", state}, {"new_state", new_state}, {"to_caller", to_caller}])
 
     {:reply, to_caller, new_state}
   end
