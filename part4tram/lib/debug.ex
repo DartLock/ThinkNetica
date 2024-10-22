@@ -1,4 +1,4 @@
-defmodule Aircraft.Debug do
+defmodule Tram.Debug do
   @moduledoc """
   Данный модуль используется для вывода своего рода отладочной информации что бы следить за ходом выполнения.
   """
