@@ -1,37 +1,40 @@
 defmodule TramM3 do
   use GenServer
 
-  alias Tram.Debug
+  alias TramM3.Debug
 
-  @states %{
-    doors_closed: {:doors_on, :doors_off, :drive},
-    driving: {:doors_off, :drive, :stop},
-    stopped: {:drive, :stop, :doors_on},
-    doors_opened: {:stop, :doors_on, :doors_off}
+  # состояния должны быть простыми в итоге.
+  # но контролировать внутри метода можно более сложными матчами
+
+  @states {
+    :doors_closed, {:doors_on, :doors_off, :drive},
+    :driving, {:doors_off, :drive, :stop},
+    :stopped, {:drive, :stop, :doors_on},
+    :doors_opened, {:stop, :doors_on, :doors_off}
   }
 
-  @tram_stops %{
-    first: {:street, "Kingston Ave / Saint Djonson Place"},
-    second: {:street, "Kingston Ave / Stereling Place"},
-    third: {:street, "Kingston Ave / Bergen Street"},
-    fourth: {:street, "Olbany Ave / Saint Djonson Place"},
-    fifth: {:street, "Olbany Ave / Stereling Place"},
-    sixth: {:street, "Olbany Ave / Bergen Street"}
+  @tram_stops {
+    :first_street, "Kingston Ave / Saint Djonson Place",
+    :second_street, "Kingston Ave / Stereling Place",
+    :third_street, "Kingston Ave / Bergen Street",
+    :fourth_street, "Olbany Ave / Saint Djonson Place",
+    :fifth_street, "Olbany Ave / Stereling Place",
+    :sixth_street, "Olbany Ave / Bergen Street"
   }
 
-  def doors_off({:stop, :doors_on, :doors_off}), do: {:doors_on, :doors_off, :drive}
-  def doors_off(_), do: :error
-  def drive({:doors_on, :doors_off, :drive}), do: {:doors_off, :drive, :stop}
-  def drive(_), do: :error
-  def stop({:doors_off, :drive, :stop}), do: {:drive, :stop, :doors_on}
-  def stop(_), do: :error
-  def doors_on({:drive, :stop, :doors_on}), do: {:stop, :doors_on, :doors_off}
-  def doors_on(_), do: :error
+  def to_doors_off({:stop, :doors_on, :doors_off}), do: {:doors_on, :doors_off, :drive}
+  def to_doors_off(_), do: :error
+  def to_drive({:doors_on, :doors_off, :drive}), do: {:doors_off, :drive, :stop}
+  def to_drive(_), do: :error
+  def to_stop({:doors_off, :drive, :stop}), do: {:drive, :stop, :doors_on}
+  def to_stop(_), do: :error
+  def to_doors_on({:drive, :stop, :doors_on}), do: {:stop, :doors_on, :doors_off}
+  def to_doors_on(_), do: :error
 
-  def set_next_state(state = {:stop, :doors_on, :doors_off}), do: doors_off(state)
-  def set_next_state(state = {:doors_on, :doors_off, :drive}), do: drive(state)
-  def set_next_state(state = {:doors_off, :drive, :stop}), do: stop(state)
-  def set_next_state(state = {:drive, :stop, :doors_on}), do: doors_on(state)
+  def set_next_state(state = {:stop, :doors_on, :doors_off}), do: to_doors_off(state)
+  def set_next_state(state = {:doors_on, :doors_off, :drive}), do: to_drive(state)
+  def set_next_state(state = {:doors_off, :drive, :stop}), do: to_stop(state)
+  def set_next_state(state = {:drive, :stop, :doors_on}), do: to_doors_on(state)
   def set_next_state(_), do: :error
 
   def set_next_street({:street, "Kingston Ave / Saint Djonson Place"}), do: {:street, "Kingston Ave / Stereling Place"}
@@ -42,34 +45,41 @@ defmodule TramM3 do
   def set_next_street({:street, "Olbany Ave / Bergen Street"}), do: {:street, "Kingston Ave / Saint Djonson Place"}
   def set_next_street(_), do: :error
 
-  def start_link({tram_stop, start_state} = {{:street, street}, {:drive, :stop, :doors_on}}) do
-    Debug.show(".start_link",[{"first_tram_stop", tram_stop}, {"start_state", start_state}])
+  def start(%{first: first_stop} \\ %{first: @tram_stops.first}) do
+    initial_state = {first_stop, @states.stopped}
 
-    GenServer.start_link(__MODULE__, {tram_stop, start_state}, name: :tram)
+    Debug.show(".start_link #2",[{"initial_state", initial_state}])
+
+    GenServer.start_link(__MODULE__, initial_state)
   end
 
-  @impl true
-  def init(start_state) do
-    Debug.show(".init",[{"start_state", start_state}])
-
-    {:ok, start_state}
-  end
-
-  def current() do
-    current_street = GenServer.call(__MODULE__, :current)
+  def current(pid) do
+    current_street = GenServer.call(pid, :current)
     Debug.show(".current_street",[{"current_street", current_street}])
     current_street
   end
 
-  def next(state) do
-    GenServer.cast(__MODULE__, {:next, state})
+  def next(pid, state) do
+    # need case transition
+    GenServer.cast(pid, {:next, state})
   end
 
   @impl true
-  def handle_call(:current, _from, [head | tail]) do
-    Debug.show(".handle_call :current",[{"head", head}, {"tail", tail}])
+  def init({tram_stop, start_state}) do
+    Debug.show(".init",[{"tram_stop", tram_stop}, {"start_state", start_state}])
 
-    {:reply, head, tail}
+    {:ok, {tram_stop, start_state}}
+  end
+
+  @impl true
+  def handle_call(:current, _from, current_state) do
+    Debug.show(".handle_call :current #1",[{"current_state", current_state}])
+
+    {{:street, street}, {:state, state}} = current_state
+
+    Debug.show(".handle_call :current #2",[{"street", street}, {"state", state}])
+
+    {:reply, current_state}
   end
 
   @impl true
