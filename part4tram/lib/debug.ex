@@ -1,4 +1,4 @@
-defmodule Tram.Debug do
+defmodule TramM3.Debug do
   @moduledoc """
   Данный модуль используется для вывода своего рода отладочной информации что бы следить за ходом выполнения.
   """
@@ -48,6 +48,7 @@ defmodule Tram.Debug do
 
     IO.puts "#{add("=", "=", total_head_size)}"
   end
+  def show(_), do: {:error, :wrong_params}
 
   def out_exit do
     IO.puts("Exiting")
