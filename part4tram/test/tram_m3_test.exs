@@ -1,25 +1,50 @@
 defmodule TramM3Test do
   use ExUnit.Case
-  # doctest Tram
 
-  alias TramM3.Debug
+  test "next state transtition to next stop" do
+    TramM3.start(:first_street)
 
-  test "greets the world" do
-    assert {:ok, pid} = TramM3.start(:first_street)
+    assert {:first_street, :stopped} == TramM3.current()
 
-    # Debug.show("TEST #1", [{"pid", pid}])
+    TramM3.next()
+    assert {:first_street, :doors_opened} == TramM3.current()
 
-    current_state = TramM3.current(pid)
+    TramM3.next()
+    assert {:first_street, :doors_closed} == TramM3.current()
 
-    {current_street, state} = current_state
+    TramM3.next()
+    assert {:first_street, :driving} == TramM3.current()
 
-    Debug.show("TEST #2", [{"current_state", current_state}, {"current_street", current_street}])
+    TramM3.next()
+    assert {:second_street, :stopped} == TramM3.current()
+  end
 
-    state_info = TramM3.get_tram_state_info(state)
-    street_name = TramM3.get_tram_stop_name(current_street)
+  test "get street name" do
+    street_name = TramM3.tram_stop_name(:first_street)
+    streets = TramM3.get_tram_stops()
 
-    Debug.show("TEST #3", [{"state", state}, {"state_info", state_info}, {"street_name", street_name}])
+    assert street_name == streets[:first_street]
+  end
 
-    # assert Tram.hello() == :world
+  test "get tram stop info" do
+    state_info = TramM3.tram_state_info(:stopped)
+    states = TramM3.get_states()
+
+    assert state_info == states[:stopped]
+  end
+
+  test "error when tram process is terminated" do
+    TramM3.start(:first_street)
+    TramM3.stop()
+    TramM3.next()
+
+    assert TramM3.current() == {:error, :terminated}
+  end
+
+  test "tram in terminating state" do
+    TramM3.start(:first_street)
+    TramM3.stop()
+
+    assert TramM3.current() == {:terminating}
   end
 end
