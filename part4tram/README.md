@@ -1,21 +1,32 @@
-# Part4finitomata
+Трамвай Part 4
+рабочая папка приложения https://github.com/DartLock/ThinkNetica/tree/part4-fsm/part4tram
 
-**TODO: Add description**
+Запуск процесса  
+```
+TramM3.start(:first_street)
+```
+Первым аргументом выступает однна из улиц, то есть остановка откуда начинается путь трамвая.  
+  
+  
+Возможные аргументы:  
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `part4finitomata` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:part4finitomata, "~> 0.1.0"}
-  ]
-end
+```
+  :first_street
+  :second_street
+  :third_street
+  :fourth_street
+  :fifth_street
+  :sixth_street
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/part4finitomata>.
+Переход трамвая в другое состояние осуществляется функцие `TramM3.next()`.  
 
+`TramM3.next()` переключает за один раз только одно состояние, например из состояния `:stopped`,  
+переходит в состояние закрытых дверей `:doors_closed`.
+Таким образом, следующий вызов `TramM3.next()` переведет трамвай в состояние движения `:driving`.  
+  
+  
+Текущее состояние можно получить через `TramM3.current()`;  
+  
+  
+Что бы перевести процесс трамвая в состояние завершения делается вызов `TramM3.stop()`.
