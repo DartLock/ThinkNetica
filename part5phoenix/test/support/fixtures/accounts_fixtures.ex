@@ -11,7 +11,7 @@ defmodule Part5phoenix.AccountsFixtures do
     {:ok, user} =
       attrs
       |> Enum.into(%{
-        email: 42,
+        email: "email_1@mail.com",
         name: "some name"
       })
       |> Part5phoenix.Accounts.create_user()
