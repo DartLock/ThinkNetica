@@ -1,4 +1,4 @@
-defmodule Part6manyToMany.TodoListItemAssoc do
+defmodule Part6manyToMany.TodoListItems do
   use Ecto.Schema
   import Ecto.Changeset
 
