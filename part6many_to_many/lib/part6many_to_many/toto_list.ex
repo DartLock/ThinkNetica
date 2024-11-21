@@ -1,23 +1,7 @@
 defmodule Part6manyToMany.TodoList do
-  use Ecto.Schema
-  import Ecto.Changeset
-
-  schema "todo_lists" do
-    field :title, :string
-    many_to_many :todo_items, Part6manyToMany.TodoItem, join_through: Part6manyToMany.TodoListItem
-    timestamps()
-  end
-
   import Ecto.Query, warn: false
   alias Part6manyToMany.Repo
-  alias Part6manyToMany.TodoList
-
-  @doc false
-  def changeset(todo_list, attrs) do
-    todo_list
-    |> cast(attrs, [:title])
-    |> validate_required([:title])
-  end
+  alias Part6manyToMany.Schemas.TodoList
 
   @doc """
   Returns the list of todo_lists.

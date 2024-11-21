@@ -1,5 +1,5 @@
 defmodule Part6manyToMany.TodoItemFixtures do
-  alias Part6manyToMany.Debug
+  alias Part6manyToMany.TodoItem
 
   @moduledoc """
   This module defines test helpers for creating
@@ -10,7 +10,7 @@ defmodule Part6manyToMany.TodoItemFixtures do
   Generate a todo_item.
   """
   def todo_item_fixture(desc = %{desc: description} \\ %{desc: "Default description"}) do
-    {:ok, todo_item} = Part6manyToMany.TodoItem.create_todo_item(desc)
+    {:ok, todo_item} = TodoItem.create_todo_item(desc)
 
     todo_item
   end

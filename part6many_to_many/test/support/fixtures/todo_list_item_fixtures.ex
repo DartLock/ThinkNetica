@@ -1,4 +1,6 @@
 defmodule Part6manyToMany.TodoListItemFixtures do
+  alias Part6manyToMany.TodoListItem
+
   import Part6manyToMany.TodoListFixtures
   import Part6manyToMany.TodoItemFixtures
 
@@ -11,6 +13,6 @@ defmodule Part6manyToMany.TodoListItemFixtures do
   Generate a todo_list_item.
   """
   def todo_list_item_fixture(%{todo_item: item, todo_list: list}) do
-    Part6manyToMany.TodoListItem.create(%{todo_item: item, todo_list: list})
+    TodoListItem.create(%{todo_item: item, todo_list: list})
   end
 end
