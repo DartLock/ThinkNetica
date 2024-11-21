@@ -3,8 +3,8 @@ defmodule Part6manyToMany.Repo.Migrations.TodoListItem do
 
   def up do
     create table(:todo_list_items, primary_key: false) do
-      add :todo_item_id, references(:todo_items)
-      add :todo_list_id, references(:todo_lists)
+      add :todo_item_id, references(:todo_items, on_delete: :delete_all)
+      add :todo_list_id, references(:todo_lists, on_delete: :delete_all)
       timestamps()
     end
   end
