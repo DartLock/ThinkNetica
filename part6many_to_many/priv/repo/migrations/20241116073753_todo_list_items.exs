@@ -1,8 +1,8 @@
-defmodule Part6manyToMany.Repo.Migrations.TodoListItemAssoc do
+defmodule Part6manyToMany.Repo.Migrations.TodoListItem do
   use Ecto.Migration
 
   def up do
-    create table(:todo_list_item_assocs, primary_key: false) do
+    create table(:todo_list_items, primary_key: false) do
       add :todo_item_id, references(:todo_items)
       add :todo_list_id, references(:todo_lists)
       timestamps()
@@ -10,6 +10,6 @@ defmodule Part6manyToMany.Repo.Migrations.TodoListItemAssoc do
   end
 
   def down do
-    drop table(:todo_list_item_assocs)
+    drop table(:todo_list_items)
   end
 end
