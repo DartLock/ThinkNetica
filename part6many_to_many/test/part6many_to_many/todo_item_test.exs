@@ -1,7 +1,6 @@
 defmodule Part6manyToMany.TodoItemTest do
   use ExUnit.Case
   alias Part6manyToMany.TodoItem
-  alias Part6manyToMany.TodoItemRepo
 
   use Part6manyToMany.DataCase
 

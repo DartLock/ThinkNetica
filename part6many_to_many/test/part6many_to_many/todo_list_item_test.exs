@@ -1,7 +1,6 @@
 defmodule Part6manyToMany.TodoListItemTest do
   use ExUnit.Case
   alias Part6manyToMany.TodoListItem
-  alias Part6manyToMany.TodoListItemRepo
 
   use Part6manyToMany.DataCase
 
@@ -14,7 +13,7 @@ defmodule Part6manyToMany.TodoListItemTest do
       list = todo_list_fixture()
       item = todo_item_fixture()
 
-      {:ok, relation} = Part6manyToMany.TodoListItem.create(%{todo_item: item, todo_list: list})
+      {:ok, relation} = TodoListItem.create(%{todo_item: item, todo_list: list})
 
       exists_relations = TodoListItem.all()
 
@@ -25,7 +24,7 @@ defmodule Part6manyToMany.TodoListItemTest do
       list = todo_list_fixture()
       item = todo_item_fixture()
 
-      {:ok, relation} = Part6manyToMany.TodoListItem.create(%{todo_item: item, todo_list: list})
+      {:ok, relation} = todo_list_item_fixture(%{todo_item: item, todo_list: list})
 
       exists_relations = TodoListItem.all()
 
