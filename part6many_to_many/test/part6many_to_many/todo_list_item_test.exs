@@ -1,34 +1,49 @@
 defmodule Part6manyToMany.TodoListItemTest do
   use ExUnit.Case
   alias Part6manyToMany.TodoListItem
+  alias Part6manyToMany.TodoList
+  alias Part6manyToMany.TodoItem
 
   use Part6manyToMany.DataCase
 
-  import Part6manyToMany.TodoListItemFixtures
-  import Part6manyToMany.TodoListFixtures
-  import Part6manyToMany.TodoItemFixtures
-
   describe "relations" do
-    test "all/0 returns all relations" do
-      list = todo_list_fixture()
-      item = todo_item_fixture()
+    test "create assoc" do
+      {:ok, list} = TodoList.create(%{title: "List Description"})
+      {:ok, item} = TodoItem.create(%{desc: "Item Title"})
 
-      {:ok, relation} = TodoListItem.create(%{todo_item: item, todo_list: list})
+      relation = TodoListItem.create(%{todo_item: item, todo_list: list})
+      exists_relation = Enum.at(TodoListItem.all(), 0)
 
-      exists_relations = TodoListItem.all()
+      assert exists_relation == relation
 
-      assert exists_relations == [relation]
+      assert list == exists_relation.todo_list
+      assert item == exists_relation.todo_item
     end
 
-    test "get/1 returns relation by id" do
-      list = todo_list_fixture()
-      item = todo_item_fixture()
+    test "cascade delete by todo_item" do
+      {:ok, list} = TodoList.create(%{title: "List Description"})
+      {:ok, _} = TodoItem.create(%{desc: "Item Title"})
 
-      {:ok, relation} = todo_list_item_fixture(%{todo_item: item, todo_list: list})
+      TodoList.delete(list)
 
       exists_relations = TodoListItem.all()
+      exists_lists = TodoList.all()
 
-      assert exists_relations == [relation]
+      assert exists_relations == []
+      assert exists_lists == []
+    end
+
+    test "cascade delete by todo_list" do
+      {:ok, _} = TodoList.create(%{title: "List Description"})
+      {:ok, item} = TodoItem.create(%{desc: "Item Title"})
+
+      TodoList.delete(item)
+
+      exists_relations = TodoListItem.all()
+      exists_items = TodoItem.all()
+
+      assert exists_relations == []
+      assert exists_items == []
     end
   end
 end

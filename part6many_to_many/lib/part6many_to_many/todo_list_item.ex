@@ -26,6 +26,32 @@ defmodule Part6manyToMany.TodoListItem do
   end
 
   @doc """
+  Returns the last record of todo_list_items.
+
+  ## Examples
+    iex> first()\\
+    %TodoListItem{}
+  """
+  def first() do
+    query = from list_item in TodoListItem, as: :todo_list_items, order_by: [desc: :updated_at]
+
+    Enum.at(Repo.all(query), 0)
+  end
+
+  @doc """
+  Returns the last record of todo_list_items.
+
+  ## Examples
+    iex> last()\\
+    %TodoListItem{}
+  """
+  def last() do
+    query = from list_item in TodoListItem, as: :todo_list_items, order_by: [desc: :updated_at]
+
+    Enum.at(Repo.all(query), -1)
+  end
+
+  @doc """
   Gets a single relation.
 
   Raises `Ecto.NoResultsError` if the TodoListItem does not exist.
@@ -50,7 +76,14 @@ defmodule Part6manyToMany.TodoListItem do
     {:error, %Ecto.Changeset{}}
   """
   def create(%{todo_item: item, todo_list: list}) do
-    Repo.insert(%TodoListItem{todo_item: item, todo_list: list})
+    todo_list_item = %Part6manyToMany.Schemas.TodoListItem{
+      todo_item: item,
+      todo_item_id: item.id,
+      todo_list: list,
+      todo_list_id: list.id
+    }
+
+    Repo.insert!(todo_list_item)
   end
 
   @doc """
@@ -78,9 +111,7 @@ defmodule Part6manyToMany.TodoListItem do
     iex> delete(relation)\\
     {:error, %Ecto.Changeset{}}
   """
-  def delete(%TodoListItem{} = relation) do
-    Repo.delete(relation)
-  end
+  def delete(relation), do: Repo.delete(relation)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking relation changes.
@@ -88,7 +119,5 @@ defmodule Part6manyToMany.TodoListItem do
     iex> change(relation)\\
     %Ecto.Changeset{data: %TodoListItem{}}
   """
-  def change(%TodoListItem{} = relation, attrs \\ %{}) do
-    TodoListItem.changeset(relation, attrs)
-  end
+  def change(%TodoListItem{} = relation, attrs \\ %{}), do: TodoListItem.changeset(relation, attrs)
 end

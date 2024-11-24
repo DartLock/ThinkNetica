@@ -3,7 +3,6 @@ defmodule Part6manyToMany.TodoItem do
   alias Part6manyToMany.Repo
   alias Part6manyToMany.Schemas.TodoItem
 
-
   @doc """
   Returns the item of todo_items.
 
@@ -13,6 +12,32 @@ defmodule Part6manyToMany.TodoItem do
   """
   def all do
     Repo.all(TodoItem)
+  end
+
+  @doc """
+  Returns the last record of todo_items.
+
+  ## Examples
+    iex> first()\\
+    %TodoItem{}
+  """
+  def first() do
+    query = from item in TodoItem, as: :todo_items, order_by: [desc: :updated_at]
+
+    Enum.at(Repo.all(query), 0)
+  end
+
+  @doc """
+  Returns the last record of todo_items.
+
+  ## Examples
+    iex> last()\\
+    %TodoItem{}
+  """
+  def last() do
+    query = from item in TodoItem, as: :todo_items, order_by: [desc: :updated_at]
+
+    Enum.at(Repo.all(query), -1)
   end
 
   @doc """
@@ -33,15 +58,15 @@ defmodule Part6manyToMany.TodoItem do
   Creates a todo_item.
 
   ## Examples
-    iex> create_todo_item(%{field: value})\\
+    iex> create(%{field: value})\\
     {:ok, %TodoItem{}}
 
-    iex> create_todo_item(%{field: bad_value})\\
+    iex> create(%{field: bad_value})\\
     {:error, %Ecto.Changeset{}}
   """
-  def create_todo_item(attrs \\ %{}) do
+  def create(item \\ %{}) do
     %TodoItem{}
-    |> TodoItem.changeset(attrs)
+    |> TodoItem.changeset(item)
     |> Repo.insert()
   end
 
@@ -70,9 +95,7 @@ defmodule Part6manyToMany.TodoItem do
     iex> delete_todo_item(todo_item)\\
     {:error, %Ecto.Changeset{}}
   """
-  def delete_todo_item(%TodoItem{} = todo_item) do
-    Repo.delete(todo_item)
-  end
+  def delete(todo_item), do: Repo.delete(todo_item)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking todo_item changes.
@@ -80,7 +103,5 @@ defmodule Part6manyToMany.TodoItem do
     iex> change_todo_item(todo_item)\\
     %Ecto.Changeset{data: %TodoItem{}}
   """
-  def change_todo_item(%TodoItem{} = todo_item, attrs \\ %{}) do
-    TodoItem.changeset(todo_item, attrs)
-  end
+  def change_todo_item(%TodoItem{} = todo_item, attrs \\ %{}), do: TodoItem.changeset(todo_item, attrs)
 end
