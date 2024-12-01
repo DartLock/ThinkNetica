@@ -1,21 +1,5 @@
 # Part7Impl
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `part7_impl` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:part7_impl, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/part7_impl>.
+сделан протокол и behaviour.
+Рабочаая папка задания: https://github.com/DartLock/ThinkNetica/tree/part7_impl/part7_impl
 
