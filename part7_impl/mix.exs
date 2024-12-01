@@ -1,9 +1,9 @@
-defmodule Part7Impl.MixProject do
+defmodule Part7Protocols.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :part7_impl,
+      app: :part7_protocols,
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
