@@ -1,22 +1,31 @@
 Один день(Supervisor)  
 │  
 ├── Утро(Supervisor)  
-│   ├── Завтрак(GenServer)  
-│   └── Сборка на работу(GenServer)  
+│   ├── Утренние приготовления(Supervisor)  
+│   │   └── Сборка на работу(GenServer)  
+│   └── Завтрак(Supervisor)  
+│       └── Процесс завтрака(GenServer)  
 │  
-├── Поездка на работу(Supervisor)  
-│   ├── Подготовка транспорта(GenServer)  
-│   └── Поездка в транспорте(GenServer)  
+├── Транспорт(Supervisor)  
+│   ├── Подготовка транспорта(Supervisor)  
+│   │   └── Прогрев(GenServer)  
+│   └── Поездка(Supervisor)  
+│       └── Процесс поездки на работу(GenServer)  
 │  
 ├── Работа(Supervisor)  
-│   ├── Выполнение работы(GenServer)  
-│   ├── Обед(GenServer)  
-│   └── Выполнение работы(GenServer)  
+│   └── Выполнение работы(GenServer)─┐  
+│       └── Перерыв(Supervisor)      │  
+│           └── Обед(GenServer)──────┘  
 │  
-├── Возвращение домой(GenServer)  
-│   ├── Подготовка транспорта(GenServer)  
-│   └── Поездка в транспорте(GenServer)  
+├── Возвращение домой(Supervisor)  
+│   └── Транспорт(Supervisor)  
+│       ├── Подготовка транспорта(Supervisor)  
+│       │   └── Прогрев(GenServer)  
+│       └── Поездка(Supervisor)  
+│           └── Процесс поездки домой(GenServer)  
 │  
 └── Дом(Supervisor)  
-    ├── Подготовка ко сну(GenServer)  
-    └── Сон(GenServer)  
+    ├── Вечерние приготовления(Supervisor)  
+    │   └── Прием душа(GenServer)  
+    └── Ужин(Supervisor)  
+        └── Процесс ужина(GenServer)  
