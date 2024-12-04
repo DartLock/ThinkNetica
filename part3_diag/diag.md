@@ -17,7 +17,7 @@
 │       └── Перерыв(Supervisor)      │  
 │           └── Обед(GenServer)──────┘  
 │  
-├── Возвращение домой(Supervisor):one_for_one  
+├── Возвращение домой(Supervisor)  
 │   └── Транспорт(Supervisor):one_for_one  
 │       ├── Подготовка транспорта(Supervisor)  
 │       │   └── Прогрев(GenServer)  
