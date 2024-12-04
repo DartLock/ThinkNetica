@@ -1,12 +1,12 @@
-Один день(Supervisor):one_for_one  
+Один день(Supervisor)  
 │  
-├── Утро(Supervisor):one_for_one  
+├── Утро(Supervisor)  
 │   ├── Утренние приготовления(Supervisor)  
 │   │   └── Сборка на работу(GenServer)  
 │   └── Завтрак(Supervisor)  
 │       └── Процесс завтрака(GenServer)  
 │  
-├── Транспорт(Supervisor):one_for_one  
+├── Транспорт(Supervisor)  
 │   ├── Подготовка транспорта(Supervisor)  
 │   │   └── Прогрев(GenServer)  
 │   └── Поездка(Supervisor)  
@@ -18,13 +18,13 @@
 │           └── Обед(GenServer)──────┘  
 │  
 ├── Возвращение домой(Supervisor)  
-│   └── Транспорт(Supervisor):one_for_one  
+│   └── Транспорт(Supervisor)  
 │       ├── Подготовка транспорта(Supervisor)  
 │       │   └── Прогрев(GenServer)  
 │       └── Поездка(Supervisor)  
 │           └── Процесс поездки домой(GenServer)  
 │  
-└── Дом(Supervisor):one_for_one  
+└── Дом(Supervisor)  
     ├── Вечерние приготовления(Supervisor)  
     │   └── Прием душа(GenServer)  
     └── Ужин(Supervisor)  
