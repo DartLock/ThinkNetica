@@ -1,0 +1,1 @@
+![alt text](https://github.com/DartLock/ThinkNetica/blob/part3_diag/part3_diag/work_day.png?raw=true)
