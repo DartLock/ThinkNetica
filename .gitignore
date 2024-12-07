@@ -4,3 +4,10 @@ training
 
 _build
 deps
+
+.env
+
+config/env.exs
+
+.idea
+.vscode
