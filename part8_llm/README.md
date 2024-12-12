@@ -10,8 +10,8 @@
 #### Генерация текста
 ![alt text](https://github.com/DartLock/ThinkNetica/blob/part8_llm/part8_llm/text_generation.png?raw=true)
 
-#### Сходный код Сессии LiveBook
-# Part8 LLM Simakov
+### Исходный код Сессии LiveBook
+#### Part8 LLM Simakov
 
 ```elixir
 Mix.install([
@@ -26,7 +26,7 @@ Mix.install([
 Nx.global_default_backend(EXLA.Backend)
 ```
 
-## Text Classify
+#### Text Classify
 
 ```elixir
 {:ok, model_info} =
@@ -65,7 +65,7 @@ end)
 Kino.Layout.grid([form, frame], boxed: true, gap: 16)
 ```
 
-## Part8 LLM Simakov Image Classify
+#### Part8 LLM Simakov Image Classify
 
 ```elixir
 {:ok, model_info} = Bumblebee.load_model({:hf, "google/vit-base-patch16-224"})
@@ -104,7 +104,7 @@ end)
 Kino.Layout.grid([form, frame], boxed: true, gap: 16)
 ```
 
-## Part8 LLM Simakov Text Generation
+#### Part8 LLM Simakov Text Generation
 
 ```elixir
 {:ok, model} = Bumblebee.load_model({:hf, "openai-community/gpt2"})
