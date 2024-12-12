@@ -9,3 +9,6 @@
 
 #### Генерация текста
 ![alt text](https://github.com/DartLock/ThinkNetica/blob/part8_llm/part8_llm/text_generation.png?raw=true)
+
+#### Сходный код Сессии LiveBook
+![alt text](https://github.com/DartLock/ThinkNetica/blob/part8_llm/part8_llm/part8_llm_simakov.livemd?raw=true)
