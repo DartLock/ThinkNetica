@@ -12,6 +12,7 @@
 
 ## Исходный код Сессии LiveBook
 
+##### Setup
 ```elixir
 Mix.install([
   {:bumblebee, "~> 0.6.0"},
