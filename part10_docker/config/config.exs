@@ -20,8 +20,7 @@ config :part10_docker, Part10DockerWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Part10Docker.PubSub,
-  live_view: [signing_salt: "kATFo7wG"],
-  server: true
+  live_view: [signing_salt: "kATFo7wG"]
 
 # Configures the mailer
 #
