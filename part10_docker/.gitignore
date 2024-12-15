@@ -35,3 +35,5 @@ part10_docker-*.tar
 npm-debug.log
 /assets/node_modules/
 
+db/data
+

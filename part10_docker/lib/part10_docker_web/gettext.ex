@@ -20,5 +20,5 @@ defmodule Part10DockerWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :part10_docker
+  use Gettext, otp_app: :part10_docker_web
 end

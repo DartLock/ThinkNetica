@@ -4,8 +4,9 @@ import Config
 config :part10_docker, Part10Docker.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: "pg_db_server",
   database: "part10_docker_dev",
+  port: 5432,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
