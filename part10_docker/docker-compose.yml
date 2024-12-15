@@ -1,0 +1,30 @@
+version: '3'
+services:
+  pg_db_server:
+    image: postgis_v14_qa:2024.03.25
+    container_name: pg_db_server
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: part10_docker_prod
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/data:/home/data
+      - /var/run/postgresql:/var/run/postgresql
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+
+  elixir_app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: elixir_app
+    volumes:
+      - .:/home/app
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: ecto://postgres:postgres@pg_db_server:5432/part10_docker_prod
+      SECRET_KEY_BASE: "Jcr64/lPJXXxLU3aqldLbxN6ErMaU01h2zvPupZaJYge0DXihNiHzussMU33fag9"
